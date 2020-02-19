@@ -2,6 +2,7 @@ package com.kafloid.taller3
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteraction {
 
     val users = mutableListOf<User>()
     private var adapter : MyUserRecyclerViewAdapter? = null
@@ -27,10 +28,7 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
-
-        users.add(User("User 2"))
-
-        adapter = MyUserRecyclerViewAdapter(users)
+        adapter = MyUserRecyclerViewAdapter(users, this)
 
         view.list.layoutManager = LinearLayoutManager(context)
         view.list.adapter = adapter
@@ -42,6 +40,15 @@ class MainFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onListItemInteraction(item: User?) {
+        Log.d("KRecycleView", "onListeItemInteraction" + item!!.nombre)
+    }
+
+    override fun onListButtonInteraction(item: User?) {
+        users.remove(item)
+        adapter!!.updateData();
     }
 
 
