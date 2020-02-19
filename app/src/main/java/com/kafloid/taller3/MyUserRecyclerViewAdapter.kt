@@ -26,6 +26,10 @@ class MyUserRecyclerViewAdapter(
         holder.textView.text = item.nombre
     }
 
+    public fun updateData(){
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView){
         val button : Button = mView.buttonDeleteUser
         val textView : TextView = mView.textViewUserName

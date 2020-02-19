@@ -18,6 +18,7 @@ class MainFragment : Fragment() {
 
     val users = mutableListOf<User>()
     private var adapter : MyUserRecyclerViewAdapter? = null
+    var count : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +27,19 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
-        users.add(User("User 1"))
+
         users.add(User("User 2"))
 
         adapter = MyUserRecyclerViewAdapter(users)
 
         view.list.layoutManager = LinearLayoutManager(context)
         view.list.adapter = adapter
+
+        view.floatingActionButton.setOnClickListener{
+            users.add(User("User " + count))
+            count++;
+            adapter!!.updateData();
+        }
 
         return view
     }
