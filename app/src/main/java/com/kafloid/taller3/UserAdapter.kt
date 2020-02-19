@@ -33,13 +33,13 @@ class UserAdapter(
         holder.mView.user = item
         holder.mView.executePendingBindings()
 
-        /*holder.mView.setOnClickListener {
-            mListener?.onListItemInteraction(item)
+        holder.mView.theLayout.setOnClickListener{
+            mListener?.onListButtonInteraction(item)
         }
 
-        holder.button.setOnClickListener{
+        holder.mView.buttonDeleteUser.setOnClickListener{
             mListener?.onListButtonInteraction(item)
-        }*/
+        }
     }
 
     public fun updateData(){
