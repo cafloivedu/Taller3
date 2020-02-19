@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kafloid.taller3.data.User
 import kotlinx.android.synthetic.main.row.view.*
 
-class MyUserRecyclerViewAdapter(
+class UserAdapter(
     private val mValues: List<User>,
     private val mListener: onListInteraction
- ) : RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>() {
+ ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -23,7 +23,7 @@ class MyUserRecyclerViewAdapter(
 
     override fun getItemCount(): Int = mValues.size
 
-    override fun onBindViewHolder(holder: MyUserRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserAdapter.ViewHolder, position: Int) {
         val item = mValues[position]
         holder.textView.text = item.nombre
 
