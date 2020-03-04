@@ -33,7 +33,7 @@ class MainFragment : Fragment(), UserAdapter.onListInteraction {
         view.list.adapter = adapter
 
         view.floatingActionButton.setOnClickListener{
-            users.add(User("User " + count))
+            users.add(User("Nombre: " + count, "Correo: " + count, "Telefono: " + count))
             count++;
             adapter!!.updateData();
         }
@@ -42,11 +42,11 @@ class MainFragment : Fragment(), UserAdapter.onListInteraction {
     }
 
     override fun onListItemInteraction(item: User?) {
-        Log.d("KRecycleView", "onListeItemInteraction" + item!!.nombre)
+        Log.d("KRecycleView", "onListItemInteraction" + item!!.nombre)
     }
 
     override fun onListButtonInteraction(item: User?) {
-        users.remove(item)
+        //users.remove(item)
         adapter!!.updateData();
     }
 

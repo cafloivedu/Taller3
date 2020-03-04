@@ -36,10 +36,6 @@ class UserAdapter(
         holder.mView.theLayout.setOnClickListener{
             mListener?.onListButtonInteraction(item)
         }
-
-        holder.mView.buttonDeleteUser.setOnClickListener{
-            mListener?.onListButtonInteraction(item)
-        }
     }
 
     public fun updateData(){
