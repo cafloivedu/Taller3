@@ -8,8 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
 import com.kafloid.taller3.data.User
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.row.*
 
 /**
  * A simple [Fragment] subclass.
@@ -33,12 +37,28 @@ class MainFragment : Fragment(), UserAdapter.onListInteraction {
         view.list.adapter = adapter
 
         view.floatingActionButton.setOnClickListener{
-            users.add(User("Nombre: " + count, "Correo: " + count, "Telefono: " + count))
+            VolleySingleton.getInstance(this).addToRequestQueue(getStringRequest())
+            //users.add(User("Nombre: " + count, "Correo: " + count, "Telefono: " + count))
             count++;
             adapter!!.updateData();
         }
 
         return view
+    }
+
+    fun getStringRequest() : StringRequest{
+        val url = "https://randomuser.me/api/"
+
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            Response.Listener<String>{ response ->
+                textViewUserName.text = response.toString()
+            },
+            Response.ErrorListener{
+                textViewUserName.text = "error"
+            }
+        )
+        return stringRequest
     }
 
     override fun onListItemInteraction(item: User?) {
