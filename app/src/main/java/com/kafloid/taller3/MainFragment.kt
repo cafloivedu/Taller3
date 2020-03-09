@@ -37,7 +37,7 @@ class MainFragment : Fragment(), UserAdapter.onListInteraction {
         view.list.adapter = adapter
 
         view.floatingActionButton.setOnClickListener{
-            VolleySingleton.getInstance(this).addToRequestQueue(getStringRequest())
+            //VolleySingleton.getInstance(this).addToRequestQueue(getStringRequest())
             //users.add(User("Nombre: " + count, "Correo: " + count, "Telefono: " + count))
             count++;
             adapter!!.updateData();
@@ -46,20 +46,7 @@ class MainFragment : Fragment(), UserAdapter.onListInteraction {
         return view
     }
 
-    fun getStringRequest() : StringRequest{
-        val url = "https://randomuser.me/api/"
 
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            Response.Listener<String>{ response ->
-                textViewUserName.text = response.toString()
-            },
-            Response.ErrorListener{
-                textViewUserName.text = "error"
-            }
-        )
-        return stringRequest
-    }
 
     override fun onListItemInteraction(item: User?) {
         Log.d("KRecycleView", "onListItemInteraction" + item!!.nombre)
