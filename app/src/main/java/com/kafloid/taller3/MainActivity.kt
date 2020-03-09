@@ -7,7 +7,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.row.*
-import kotlinx.android.synthetic.main.fragment_main.textViewUserName as textViewUserName1
+import kotlinx.android.synthetic.main.fragment_main.textViewUserName
 
 class MainActivity : AppCompatActivity() {
 
