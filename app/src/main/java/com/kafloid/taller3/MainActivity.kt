@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
-                parseObject(response)
+                //parseObject(response)
+                parseObjectG(response)
             },
             Response.ErrorListener{
                 textViewUserName.text = "error"
@@ -65,6 +66,17 @@ class MainActivity : AppCompatActivity() {
             val firstName = nameObject.getString("first")
             Log.d("JSONParsing", gender + " " + firstName)
 
+        }
+    }
+
+    fun parseObjectG(response: JSONObject) {
+        var list = RandomUser.getUser(response)
+        val size: Int = list.size
+        val i: Int = 0
+        for (i in 0.. size -1){
+            val user = list.get(i)
+            Log.d("WebJson", "element "+ user.name.first)
+            Log.d("WebJson", "element ")
         }
     }
 }

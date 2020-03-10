@@ -33,7 +33,7 @@ public class RandomUser {
     public static ArrayList<RandomUser> getUser(JSONObject response){
         ArrayList<RandomUser> list = new ArrayList<>();
         try {
-            JSONArray info = response.getJSONArray("result");
+            JSONArray info = response.getJSONArray("results");
             for (int i = 0; i < info.length(); i++){
                 String persona = info.getJSONObject(i).toString();
                 RandomUser temp = g.fromJson(persona, RandomUser.class);
@@ -43,6 +43,30 @@ public class RandomUser {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static class Location{
+        public Street street;
+        public String city;
+        public String state;
+        public String postcode;
+        public Coordinates coordinates;
+        public Timezone timezone;
+
+        public Location (){}
+
+        @Override
+        public String toString() { return g.toJson(this);}
+    }
+
+    public static class Street {
+        public String number;
+        public String name;
+
+        public Street(){}
+
+        @Override
+        public String toString() { return g.toJson(this);}
     }
 
     public  static  class Name{
@@ -96,11 +120,43 @@ public class RandomUser {
         public String toString() { return g.toJson(this);}
     }
 
-    public static class Cordinates{
+    public static class Dob {
+        public String date;
+        public String age;
+        public Dob(){
+
+        }
+        @Override
+        public String toString() { return g.toJson(this);}
+    }
+
+    public static class Picture {
+        public String large;
+        public String medium;
+        public String thumbnail;
+        public Picture(){
+
+        }
+        @Override
+        public String toString() { return g.toJson(this);}
+    }
+
+    public static class Timezone {
+        public String offset;
+        public String description;
+
+        public Timezone(){
+
+        }
+        @Override
+        public String toString() { return g.toJson(this);}
+    }
+
+    public static class Coordinates{
         public String latitude;
         public String longitude;
 
-        public Cordinates(){}
+        public Coordinates(){}
 
         @Override
         public String toString() { return g.toJson(this);}
