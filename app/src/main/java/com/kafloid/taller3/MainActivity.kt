@@ -3,6 +3,8 @@ package com.kafloid.taller3
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -15,12 +17,25 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var viewModel: RandomUserViewModel
+    private var userList = mutableListOf<RandomUser>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel = ViewModelProvider(this).get(RandomUserViewModel::class.java)
+
+        viewModel.getUsers().observe(this, Observer { users ->
+            run{
+                userList = users as MutableList<RandomUser>
+                Log.d("LiveData", "userList size "+ userList.size)
+            }
+        })
+
         floatingActionButton.setOnClickListener{
-            VolleySingleton.getInstance(this).addToRequestQueue(getJsonObjectRequest())
+            //VolleySingleton.getInstance(this).addToRequestQueue(getJsonObjectRequest())
+            viewModel.addUser()
         }
     }
 
@@ -39,21 +54,7 @@ class MainActivity : AppCompatActivity() {
         return stringRequest
     }
 
-    fun getJsonObjectRequest() : JsonObjectRequest {
-        val url = "https://randomuser.me/api/"
 
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            Response.Listener { response ->
-                //parseObject(response)
-                parseObjectG(response)
-            },
-            Response.ErrorListener{
-                textViewUserName.text = "error"
-            }
-        )
-        return jsonObjectRequest
-    }
 
     fun parseObject(response: JSONObject) {
         val jsonArrayResults: JSONArray = response.getJSONArray("results")
@@ -69,14 +70,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun parseObjectG(response: JSONObject) {
+    fun parseObjectGson(response: JSONObject) {
         var list = RandomUser.getUser(response)
         val size: Int = list.size
         val i: Int = 0
         for (i in 0.. size -1){
             val user = list.get(i)
             Log.d("WebJson", "element "+ user.name.first)
-            Log.d("WebJson", "element ")
+
         }
     }
 }
